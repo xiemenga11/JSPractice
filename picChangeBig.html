@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标划过图片变大</title>
+	<style>
+	#picBox{
+		width:1000px;
+		margin:0 auto;
+	}
+	#picBox img{
+		width:20%;
+		height:100px;
+	}
+	</style>
+</head>
+<body>
+	<div id="picBox">
+		<img src="img/koala.jpg" alt=""><img src="img/koala.jpg" alt=""><img src="img/koala.jpg" alt=""><img src="img/koala.jpg" alt=""><img src="img/koala.jpg" alt="">
+	</div>
+	
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+
+	<script src="js/leo.js"></script>
+	<script>
+		var imgs = l("#picBox img");
+		imgs.each(function(obj,i){
+			var timer;
+			var timer1;
+			var timer2;
+			l(obj).listen("mouseover",function(){
+				var This = this;
+
+				timer = setInterval(function(){
+					if(This.offsetHeight<200){
+						This.style.height = This.offsetHeight+3+"px";
+					}else{
+						clearInterval(timer);
+					}
+				},10)
+				if(i > 0){
+					var This1 = imgs.obj[i-1];
+					timer1 = setInterval(function(){
+						if(This1.offsetHeight<150){
+							This1.style.height = This1.offsetHeight+3+"px";
+						}else{
+							clearInterval(timer1);
+						}
+					},10)
+				}
+				if(i < 4){
+					var This2 = imgs.obj[i+1];
+					timer2 = setInterval(function(){
+						if(This2.offsetHeight<150){
+							This2.style.height = This2.offsetHeight+3+"px";
+						}else{
+							clearInterval(timer2);
+						}
+					},10)
+				}
+			})
+			l(obj).listen("mouseout",function(){
+				var This = this;
+				clearInterval(timer);
+				timer = setInterval(function(){
+					if(This.offsetHeight>100){
+						This.style.height = This.offsetHeight-3+"px";
+					}else{
+						clearInterval(timer);
+					}
+				},10)
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>粒子效果</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<canvas id="can" width=1300 height=600 style="border:1px solid red; background-color:black"></canvas>
+	<script src="js/canvas.js"></script>
+	<script>
+		window.onload = function(){
+			
+			var li = [],
+			mainTimer;
+			for(var i = 0 ; i < 3 ; i++){
+				li[i] = new lizi();
+			}
+
+			li[0].r = 5;
+			li[1].r = 10;
+			li[2].r = 15;
+			li[0].draw();
+			li[1].draw();
+			li[2].draw();
+
+
+		}
+
+		function lizi(){
+			this.r = parseInt(Math.random()*20);
+			this.color = "rgb("+parseInt(155+Math.random()*100)+","+parseInt(155+Math.random()*100)+","+parseInt(155+Math.random()*100)+")";
+		}
+		lizi.prototype = {
+			draw:function(){
+				C("can")
+				.save()
+				.config({
+					style:{
+						fill:this.color
+					}
+				})
+				.begin()
+				.arc({
+					center:[Math.random()*1300,Math.random()*600],
+					r:this.r
+				})
+				.fill()
+				.init()
+			},
+			setR:function(r){
+				this.r = r
+			},
+			getR:function(){
+				return this.r;
+			}
+		}
+
+	</script>
+</body>
+</html>

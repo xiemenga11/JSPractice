@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>将图片画在画布上</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<input type="button" id="barkBtn" value="叫">
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+	<audio id="bark" src="msc/狗叫.mp3" ></audio>
+<script src="js/canvas.js"></script>
+<script src="js/leo.js"></script>
+<script>
+
+	function dogBody(y){
+		C("can")
+		.clear({
+			start:[0,0],
+			size:[1000,500]
+		})
+		.save()
+		//head
+		.begin()
+		.translate(500,250)
+		.arc({
+			center:[0,0],
+			r:30
+		})
+		.fill()
+		//eyes
+		
+		.begin()
+		.config({
+			style:{
+				fill:"white",
+				stroke:"white"
+			}
+		})
+		.arc({
+			center:[-10,-10],
+			r:5
+		})
+		.fill()
+
+		.begin()
+		.arc({
+			center:[10,-10],
+			r:5
+		})
+		.fill()
+		//mouse
+		
+		.moveTo(-10,10)
+		.lineTo(10,10)
+		.bezierTo(-10,10,[0,y])
+		.fill()
+		.init()
+	}
+	dogBody(0);
+	var i = 0;
+	var timer;
+	function dogBark(){
+		i +=0.1;
+		dogBody(20+Math.sin(i)*10);
+	}
+	function dog(){
+		this.isBark  = false;
+		this.isDrink = false;
+		this.isEat   = false;
+		return this;
+	}
+	dog.prototype={
+		bark:function(){
+			if(this.isBark==false){
+				this.isBark = true;
+				l("#bark").obj.play();
+				timer = setInterval(dogBark,20);
+			}else{
+				this.isBark = false;
+				l("#bark").obj.pause();
+				clearInterval(timer);
+			}
+			return this.isBark;
+		}
+	}
+	var d = new dog();
+	l("#barkBtn").listen("click",function(){
+		var isBark = d.bark();
+		if(isBark){
+			this.value = "停";
+		}else{
+			this.value = "叫";
+		}
+	})
+</script>
+</body>
+</html>

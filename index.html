@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+	<style>
+	*{
+		font-family: "微软雅黑";
+		padding:0;
+		margin:0;
+		text-decoration:none;
+		list-style: none,
+		box-sizing:border-box;
+	}
+	.main{
+		width:1000px;
+		margin:0 auto;
+	}
+	.item{
+		display: block;
+		float:left;
+		width:200px;
+		height:200px;
+		-webkit-transition:0.5s;
+		-moz-transition:0.5s;
+		-ms-transition:0.5s;
+		-o-transition:0.5s;
+		transition:0.5s;
+		color:#333;
+		text-align: center;
+		line-height: 40px;
+		font-size:20px;
+	}
+	.item:hover{
+		font-size:40px;
+		line-height: 200px;
+		color:white;
+		background-color:rgba(0,0,0,0.8);
+	}
+	.footer{
+		clear:both;
+		height:200px;
+		background-color: black;
+		line-height: 200px;
+		color:white;
+		font-size: 30px;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div style="margin:0 auto; width:1000px; height:500px;">
+		<canvas id="myCanvas" width="1000" height="500">
+			您的浏览器版本太低，请更换浏览器
+		</canvas>
+	</div>
+	<div class="main">
+		<a href="canvas.html" class="item">图上画图片</a>
+		<a href="polygen.html" class="item">多边形</a>
+		<a href="action.html" class="item">粗糙动画</a>
+		<a href="mouseaction.html" class="item">鼠标动画</a>
+		<a href="lazyload.html" class="item">lazyload</a>
+		<a href="picChangeBig.html" class="item">图片变大</a>
+		<a href="tank.html" class="item">坦克小游戏</a>
+		<a href="wave.html" class="item">摇摆</a>
+		<a href="dog.html" class="item">小狗</a>
+		<a href="car.html" class="item">车</a>
+		<a href="mobile.html" class="item">手机浏览器</a>
+		<a href="leo.html" class="item">leocss</a>
+		<a href="leoLayout.html" class="item">leo布局</a>
+		<a href="jsonTool.html" class="item">JSON工具</a>
+		<a href="lizi.html" class="item">粒子效果</a>
+		<a href="fa.html" class="item">FA</a>
+	</div>
+	<div class="footer">
+		好好学习　天天向上
+	</div>
+<script src="js/canvas.js"></script>
+<script>
+	var C=C('myCanvas');
+	function second(){
+		var now=new Date();
+		var s=now.getSeconds();
+		var m=now.getMinutes();
+		var h=now.getHours();
+		var x = Math.cos(-90*2*Math.PI/360);
+		var y = Math.sin(-90*2*Math.PI/360);
+		C
+		.clear({
+			start:[0,0],
+			size:[1000,500]
+		})
+		.save()
+		.translate(500,250)
+		.spin(s*6)
+		.begin()
+		.config({
+			font:{
+				font:"25px Arial",
+				align:"center",
+				baseline:"middle"
+			},
+			style:{
+				fill:"#3f3",
+				stroke:"#3f3"
+			},
+			line:{
+				width:30,
+				cap:"round"
+			}
+		})
+		.arc({
+			center:[0,0],
+			r:200,
+			start:1.58,
+			end:1.42
+		})
+		.stroke()
+		.begin()
+		.ftext({
+			text:s+"秒",
+			position:[x*200,y*200]
+		})
+		.init()
+		
+		//minute
+		C
+		.save()
+		.translate(500,250)
+		.spin(m*6)
+		.begin()
+		.config({
+			font:{
+				font:"25px Arial",
+				align:"center",
+				baseline:"middle"
+			},
+			style:{
+				fill:"#f66",
+				stroke:"#f66"
+			},
+			line:{
+				width:30,
+				cap:"round"
+			}
+		})
+		.arc({
+			center:[0,0],
+			r:170,
+			start:1.58,
+			end:1.42
+		})
+		.stroke()
+		.begin()
+		.ftext({
+			text:m+"分",
+			position:[x*170,y*170]
+		})
+		.init()
+		//hour
+		C
+		.save()
+		.translate(500,250)
+		.spin(h*30)
+		.begin()
+		.config({
+			font:{
+				font:"25px Arial",
+				align:"center",
+				baseline:"middle"
+			},
+			style:{
+				fill:"#007aff",
+				stroke:"#007aff"
+			},
+			line:{
+				width:30,
+				cap:"round"
+			}
+		})
+		.arc({
+			center:[0,0],
+			r:140,
+			start:1.6,
+			end:1.4
+		})
+		.stroke()
+		.begin()
+		.ftext({
+			text:h+"点",
+			position:[x*140,y*140]
+		})
+		.init()
+	}
+	second()
+	setInterval(second,1000);
+</script>
+</body>
+</html>

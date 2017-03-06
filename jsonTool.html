@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON转换工具</title>
+	<link rel="stylesheet" href="css/leo.css">
+	<style>
+		.header{
+			font-size:20px;
+			font-weight:bold;	
+			padding:20px 0;
+		}
+		#content{
+			border:none;
+			padding:10px;
+			height:470px;
+			resize:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header text-center bg-white">JSON转换工具</div>
+		<div class="row pad">
+			<div class="bor-radius bg-white col-grow-6 mar-right">
+				<div class="col-grow-12 pad rad-1 rad-2 text-c-white bg-gray">转换内容</div>
+				<textarea id="content" class="col-span-12 bor-radius"></textarea>
+			</div>
+			<div class="bor-radius bg-white col-grow-6">
+				<div class="col-grow-12 pad rad-1 rad-2 text-c-white bg-gray">转换结果</div>
+				<div id="result">做不来了</div>
+			</div>
+		</div>
+		<div class="row con-h-end pad">
+			<a href="index.html" class="ui-btn-red mar-right">返回首页</a>
+			<div id="btn" class="ui-btn-blue col-span-2">转换</div>
+		</div>
+	</div>
+<script src='js/leo.js'></script>
+<script>
+	var con = l("#content");
+	var res = l("#result");
+	var btn = l("#btn");
+	var jsonTool = function(jsonStr){
+		this.jsonStr = jsonStr;
+		this.json = strToJson(jsonStr);
+	}
+	jsonTool.prototype = {
+		getKeys:function(){
+			var j = 0;
+			this.keys = [];
+			for(var i in this.json){
+				this.keys[j] = i;
+				j++;
+			}
+			return this.keys;
+		}
+	}
+
+	btn.listen("click",function(){
+		res.obj.innerHTML = "";
+		var jt = new jsonTool(con.val());
+		var keys = jt.getKeys();
+		for(var i = 0; i < keys.length; i++){
+			res.addDom({
+				tag:'p',
+				attr:{
+					"className":"red-dot-l"
+				},
+				child:keys[i]
+			})
+		}
+	})
+</script>
+</body>
+</html>

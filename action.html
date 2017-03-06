@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>粗糙胡CANVAS动画</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/canvas.js"></script>
+<script>
+	var img=new Image();
+	img.src="img/zhong.png";
+	img.onload=function(){
+		C("can")
+		.config({
+			style:{
+				fill:"black"
+			}
+		})
+		.frec({
+			start:[0,0],
+			size:[1000,500]
+		})
+		var pic = 0;
+		setInterval(function(){
+			C("can")
+			.clear({
+				start:[0,0],
+				size:[200,200]
+			})
+			.drawImg({
+				data:img,
+				start:[0,0],
+				size:[200,200],
+				clip:{
+					start:[pic,0],
+					size:[281,256]
+				}
+			})
+			if(pic < 281*3){
+				pic+=312;
+			}else{
+				pic=0;
+			}
+		},100)
+	}
+</script>
+</body>
+</html>

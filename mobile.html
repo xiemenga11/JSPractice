@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>mobile</title>
+	<style>
+		body{
+			background-color:black;
+		}
+		#mobile{
+			width:300px;
+			height:500px;
+			margin:0 auto;
+			background-color: white;
+			position:relative;
+		}
+		#statusBar{
+			width:100%;
+			padding:5px 0;
+			text-align: center;
+			background-color:lightgreen;
+		}
+		#url{
+			border:none;
+			border-radius:10px;
+			padding-left:10px;
+		}
+		#go{
+			width:40px;
+			border:none;
+			border-radius:10px;
+			background-color:#007aff;
+			color:white;
+		}
+		#go:hover{
+			box-shadow: 0 0 10px white;
+		}
+		#pannel{
+			width:100%;
+			position: absolute;
+			bottom:0;
+			left:0;
+			background-color: #007aff;
+		}
+		#frm{
+			height:469px;
+			width:100%;
+		}
+	</style>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div id="mobile">
+		<div id="statusBar">
+			<input type="text" id="url">
+			<input type="button" id="go" value="go">
+		</div>
+		
+		<iframe id="frm" src="http://www.guanghan58.com/mobile.php" frameborder="0">不支持iframe</iframe>
+
+		<div id="pannel" class="fx fx-jus-spa-bet">
+			<input type="button" value="<">
+			<input type="button" value="home">
+			<input type="button" value=">">
+		</div>
+	</div>
+	<a href="index.html" style="display:block; width:300px; background-color:white; color:black; text-align:center; padding:10px; margin:10px auto;">返回首页</a>
+<script src="js/leo.js"></script>
+<script>
+	var go  = new l("#go");
+	var url = new l("#url");
+	var frm = new l("#frm");
+	go.listen("click",function(){
+		frm.obj.src = url.val();
+		url.val().toast();
+	})
+</script>
+</body>
+</html>

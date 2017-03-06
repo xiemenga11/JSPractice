@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>lazyload</title>
+	<style>
+		div{
+			background-color: red;
+			margin:10px;
+			height:50px;
+			width: 100px;
+		}
+		img{
+			height:50px;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script>
+	var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+	var viewportSize = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	var h=0;
+	var div=document.getElementsByTagName('div')
+	window.onscroll=function(){
+		scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+		h++;
+		for(var i = 0 ; i < div.length ; i++){
+			if(scrollTop+viewportSize-div[i].offsetTop>500){
+				div[i].innerHTML="<img src='img/koala.jpg'>";
+				div[i].style.backgroundColor="red";
+			}else{
+				div[i].innerHTML="hide";
+				div[i].style.backgroundColor="blue";
+			}
+		}
+	}
+</script>
+</body>
+</html>

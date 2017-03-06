@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>将图片画在画布上</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<div>自动驾驶<input type="checkbox" id="autoDrive"></div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/leo.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/car.js"></script>
+<script>
+	var dir = 1;
+	var run = false;
+	var car = new car();
+	var bg = new bg();
+	var con = new construction();
+	var conArr = [];
+	for(var i = 0 ; i < 10 ; i++){
+		conArr[i] = new construction();
+	}
+	var whellDeg = 0;
+	var config = {
+		fwy:0,
+		awy:0
+	}
+	car.show();
+	var mainTimer;
+	function gameRun(){
+		clearAll();
+		if(whellDeg<360&&whellDeg>-360){
+			whellDeg+=15*dir;
+		}else{
+			whellDeg = 0;
+		}
+		bg.drawHor();
+		for(var i = 0 ; i < 10 ; i++){
+			conArr[i].start[0] -=conArr[i].speed*dir;
+			conArr[i].draw()
+			if(conArr[i].start[0]<-100){
+				conArr[i] = new construction();
+			}else if (conArr[i].start[0]>1100){
+				conArr[i] = new construction();
+				conArr[i].start[0]=-100;
+			}
+		}
+		con.draw();
+		car.config = config;
+		car.setWheelDeg(whellDeg);
+		car.show(config);
+	}
+	gameRun();
+	mainTimer = setInterval(function(){
+		if(run == true){
+			gameRun();
+		}else{
+
+		}
+	},20);
+	l().listen("keydown",function(ev){
+		var ev = ev || event;
+		if(ev.keyCode == 37){
+			dir = -1;
+		}else if(ev.keyCode == 39){
+			dir = 1;
+		}
+		run = true;
+	})
+	l().listen("keyup",function(ev){
+		var ev = ev || event;
+		
+		run = false;
+	})
+	l().listen("keydown",function(ev){
+		var ev = ev || event;
+		console.log(ev.keyCode);
+	})
+	l("#autoDrive").listen("change",function(){
+		run = this.checked;
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>跟随鼠标的CANVAS动画</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/canvas.js"></script>
+<script>
+	var c = C("can");
+	var w = c.width;
+	var h = c.height;
+	var left = c.obj.offsetLeft;
+	var Top = c.obj.offsetTop;
+	var mx,my;
+	var lineX = [];
+	var lineY = [];
+	document.onmousemove = function(ev){
+		var ev = ev||event;
+		mx = ev.clientX-left;
+		my = ev.clientY-Top;
+		mx = mx<0?0:mx;
+		mx = mx>w?w:mx;
+		my = my>h?h:my;
+		my = my<Top?Top:my;
+		c
+		.save()
+		.begin()
+		.clear({
+			start:[0,0],
+			size:[w,h]
+		})
+		.frec({
+			start:[0,0],
+			size:[1000,500]
+		})
+		.arc({
+			center:[mx,my],
+			r:Math.random()*100
+		})
+		.config({
+			style:{
+				stroke:"yellow",
+				fill:"black"
+			},
+			shadow:{
+				blur:6,
+				color:"yellow"
+			}
+		})
+		.translate(mx,my)
+		function lines(){
+			for(var i = 0 ; i < 5; i++){
+				lineX[i] = Math.sin(Math.random()*360*Math.PI/180)*100*Math.random();
+				lineY[i] = Math.sin(Math.random()*360*Math.PI/180)*100*Math.random();
+				c
+				.begin()
+				.moveTo(0,0)
+				.lineTo(lineX[i],lineY[i])
+				.stroke()
+				.begin()
+				.config({
+					style:{
+						fill:"yellow"
+					}
+				})
+				.arc({
+					center:[lineX[i],lineY[i]],
+					r:Math.random()*5
+				})
+				.fill()
+			}
+		}
+		lines()
+		c.init()
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>fa view</title>
+</head>
+<body>
+
+
+<script src="js/fa.js"></script>
+<script>
+	// var l = "alsd{clsnd:alsd}{clsnd:alsd;}{asldfleo}";
+	var reg = /\{\s*[a-z\-\s]+\s*:\s*[a-z\-\s]+;\s*\}/g;
+	var r = /\{/ig;
+	l = str.replace(reg,",");
+	console.log(l);
+</script>	
+</body>
+</html>

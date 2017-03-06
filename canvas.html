@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>将图片画在画布上</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/canvas.js"></script>
+<script>
+	var img=new Image();
+	img.src="img/Koala.jpg";
+	img.onload=function(){
+		C("can")
+		.drawImg({
+			data:img,
+			start:[0,0],
+			size:[1000,500]
+		})
+	}
+</script>
+</body>
+</html>

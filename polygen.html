@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>多边形的运用</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+		<label for="r">半径</label><input value="100" class="inputs" type="text" id="r">
+		<label for="center">圆心</label><input value="100,100" type="text" id="center">
+		<label for="line">边数</label><input value="5" class="inputs" type="text" id="line">
+		<label for="spin">旋转</label><input value="20" class="inputs" type="text" id="spin">
+		<label for="fill">填充</label><input checked="true" type="checkBox" id="fill">
+		<input type="button" id="btn" value="提交">
+	</div>
+	<a href="index.html" style="width:1000px; margin:20px auto 0; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/canvas.js"></script>
+<script>
+	var inputs=document.getElementsByClassName("inputs");
+	var btn=document.getElementById("btn");
+	var fill=document.getElementById("fill");
+	var center=document.getElementById("center");
+	var config={
+		center:[100,100],
+		r:100,
+		line:5,
+		fill:true,
+		spin:20
+	}
+	C("can")
+	.polygen(config)
+
+
+	//操作
+	btn.onclick=function(){
+		for(var i = 0 ; i < inputs.length ; i++){
+			if(inputs[i].value.length > 0){
+				config[inputs[i].id] = inputs[i].value*1;
+			}
+		}
+		if(center.value.length > 0){
+			var cen=center.value.split(",");
+			config.center[0] = cen[0]*1;
+			config.center[1] = cen[1]*1;
+		}
+		config.fill=fill.checked;
+		C("can")
+		.clear({
+			start:[0,0],
+			size:[1000,500]
+		})
+		.polygen(config)
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>摇摆</title>
+</head>
+<body>
+	<div style="width:1000px; margin:0 auto;">
+		<canvas width="1000" height="500" id="can" style="border:1px solid red"></canvas>
+	</div>
+	<a href="index.html" style="width:1000px; margin:20px auto; display:block; background-color:black; color:white; padding:20px 0; text-align:center; text-decoration:none">首页</a>
+<script src="js/canvas.js"></script>
+<script>
+	function wave(x){
+		C("can")
+		.save()
+		.config({
+			style:{
+				stroke:"red"
+			},
+			line:{
+				width:10,
+				cap:"round"
+			}
+		})
+		.begin()
+		.moveTo(x,250)
+		.bezierTo(500,500,[500,350])
+		.stroke()
+		.init()
+	}
+	var x = 50;
+	var speed = 0.1;
+	var aniInterval = setInterval(function(){
+		C("can").clear({
+			start:[0,0],
+			size:[1000,500]
+		})
+		speed +=0.1;
+		wave(500+x*Math.sin(speed));
+	},20);
+	
+</script>
+</body>
+</html>
