@@ -183,7 +183,7 @@
 			}
 		},
 		html:function(text){
-			if(text){
+			if(text || l.isNumber(text)){
 				this.dom.innerHTML = text;
 				return this;
 			}else{
@@ -395,6 +395,9 @@
 	}
 	l.getType = function(data){
 		return (typeof data);
+	}
+	l.randomNum = function(num){
+		return num ? Math.random() * num : Math.random()
 	}
 	l.url = function(url){
 			if(url){

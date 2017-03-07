@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>小草</title>
+	<style>
+		body{
+			background-color: #ddd;
+		}
+		.home{
+			display: block;
+			width:100%;
+			padding:10px;
+			background-color: #eee;
+			border-radius: 5px;
+			color:#333;
+			text-decoration: none;
+			text-align: center;
+			position: fixed;
+			bottom:0;
+		}
+		#myCan{
+			display: block;
+			width: 1000px;
+			height: 500px;
+			margin: 10px auto;
+			box-shadow: 0 0 5px rgba(0,0,0,0.4)
+		}
+	</style>
+</head>
+<body>
+<canvas id="myCan" width='1000' height='500'></canvas>
+<a class = 'home' href="index.html">返回首页</a>
+<script src="js/selector.js"></script>
+<script src="js/canvas.js"></script>
+<script>
+	function grass(x){
+		this.x = x
+		this.h = l.randomNum(100) + 200
+	}
+	grass.prototype = {
+		draw:function(){
+			var j = 0,
+				This = this
+			This.timer = setInterval(function(){
+				j += 0.1
+				C('myCan')
+				.clearAll()
+				.save()
+				.begin()
+				.config({
+					style:{
+						stroke:"rgba(100,235,100,0.8)"
+					},
+					line:{
+						width:20,
+						cap:'round'
+					}
+				})
+				.moveTo(This.x,500)
+				.bezierTo(This.x + Math.sin(j) * 10,This.h,[This.x,This.h/2])
+				.stroke()
+				.close()
+				.init()
+			},20)
+		}
+	}
+	function G(){
+		return new grass(l.randomNum(1000))
+	}
+	var gra = []
+	for(var i = 0 ; i < 30 ; i++){
+		gra[i] = G()
+		gra[i].draw()
+	}
+</script>
+</body>
+</html>

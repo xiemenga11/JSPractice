@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			box-sizing:border-box;
+		}
+		body{
+			background-color: #ddd;
+		}
+		#leo{
+			padding:10px;
+			width:80%;
+			border-radius: 10px;
+			text-align: center;
+			font-size: 30px;
+			margin:0 auto;
+			background-color: #fff;
+		}
+		.pannel{
+			width:80%;
+			margin: 10px auto;
+			border-radius: 10px;
+			background-color: #fff;
+			padding:10px;
+		}
+		.color-green{
+			color:green;
+		}
+
+		/*item*/
+		.item{
+			width:19%;
+			margin-right: 1%;
+			margin-bottom:10px;
+			float:left;
+			background-color: #eee;
+		}
+		.item-name{
+			background-color:#13e06b;
+			color: white;
+			font-size: 30px;
+			padding:10px;
+			text-align: center;
+		}
+		.item-amount{
+			background-color: #ddd;
+			font-size: 20px;
+			font-weight: bold;
+			color: #555;
+			padding:10px;
+			text-align: center;
+		}
+		/*eatList*/
+		.list-item{
+			padding:5px 20px;
+			margin-right:10px;
+			background-color: #ddd;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div id = "leo">
+	<div id="status">谢蒙</div>
+	<div>
+		精神：<span class="color-green" id="spirit">100</span>
+		饥饿：<span class="color-green" id="hungry">100</span>
+	</div>
+</div>
+<div class = "pannel">
+	<button id="sleep">睡觉</button>
+	<button id="eat">吃饭</button>
+	<button id="showGoods">仓库</button>
+</div>
+<div id="goods" class = "pannel" style="display:none;">
+	<div class="item">
+		<div class="item-name" data-name="apple">苹果</div>
+		<div class="item-amount" data-s="1" data-h="1" id="apple">1</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="meat">猪肉</div>
+		<div class="item-amount" data-s="1" data-h="8"id="meat">10</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="beef">牛肉</div>
+		<div class="item-amount" data-s="2" data-h="10" id="beef">0</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="chicken">鸡肉</div>
+		<div class="item-amount" data-s="2" data-h="5" id="chicken">0</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="fruit">花菜</div>
+		<div class="item-amount" data-s="0" data-h="1" id="fruit">0</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="fish">带鱼</div>
+		<div class="item-amount" data-s="1" data-h="3" id="fish">0</div>
+	</div>
+	<div class="item">
+		<div class="item-name" data-name="berry">草莓</div>
+		<div class="item-amount" data-s="1" data-h="2" id="berry">0</div>
+	</div>
+	<div style="clear:both"></div>
+</div>
+
+<div id="eatList" class="pannel" style="display:none">	
+</div>
+
+<a href="index.html">返回首页</a>
+<script src="js/selector.js"></script>
+<script src="js/canvas.js"></script>
+<script>
+	var goods = l("#goods .item div[1]"),
+		good = {},
+		eatList = l("#eatList")
+
+	goods.each(function(i){
+		var g = {}
+		g.index = i
+		g.Name = l("#goods .item-name["+i+"]").html()
+		g.s = l(this).getData('s').toInt()
+		g.h = l(this).getData('h').toInt()
+		g.amount = l(this).html().toInt()
+		good[this.id] = g
+	})
+
+	var person = function(name){
+		this.man = l(name)
+		this.Name = this.man.html()
+		this.spirit = 100
+		this.hungry = 100
+		this.status = 'none'
+	}
+
+	person.prototype = {
+		eat:function(food){
+			// var food = good[food]
+			if(good[food].amount <= 0){
+				("没有"+good[food]["Name"]+"了").alt()
+				return 
+			}else{
+				good[food].amount -= 1
+				l("#"+food).html(good[food].amount)
+			}
+			this.status = 'eat'
+			this.man.html(this.Name + '正在吃饭')
+			this.hungry += good[food]['h']
+			this.spirit += good[food]['s']
+			l("#hungry").html(this.hungry)
+			l("#spirit").html(this.spirit)
+		},
+		sleep:function(){
+			this.man.html(this.Name + '正在睡觉')
+			this.spirit += Math.ceil(l.randomNum(10))
+			l("#spirit").html(this.spirit)
+			this.staus = 'sleep'
+		},
+		play:function(){
+			var This = this
+			var timer = setInterval(reduce,3000)
+			function reduce(){
+				l("#spirit").html(This.spirit -= 1)
+				l("#hungry").html(This.hungry -= 1)
+				if(This.spirit == 0 || This.hungry == 0){
+					'game over'.alt()
+					clearInterval(timer)
+				}
+			}
+		}
+	}
+	var leo = new person('#status')
+	leo.play()
+	l("#eat").click(function(){
+		toggleHide("#eatList")
+	})
+	l("#sleep").click(function(){
+		leo.sleep()
+	})
+	good.each(function(i){
+		l(eatList.addElement("button"))
+		.attr({
+			className:"list-item"
+		})
+		.html(this.Name)
+		.click(function(){
+			leo.eat(i)
+		})
+	})
+
+	l("#showGoods").click(function(){
+		toggleHide("#goods")
+	})
+	function toggleHide(obj){
+		var status = l(obj).css("display") == "none" ? "block" : "none"
+		l(obj).css({display:status})
+	}
+</script>
+</body>
+</html>
