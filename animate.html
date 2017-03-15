@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>动画</title>
+	<style>
+		#leo{
+			width:100px;
+			height:100px;
+			background-color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="leo"></div>
+<script src="js/selector.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/le.animate.js"></script>
+<script>
+	function move(id,pro1,pro2,callback){
+		var dom = document.getElementById(id)
+		var timer = setInterval(function(){
+			if(dom['offset'+pro2] == 200){
+				clearInterval(timer)
+				if(callback){
+					callback()
+				}
+			}
+			dom.style[pro1] = dom['offset'+pro2] + 10 + "px"
+		},20)
+	}
+	move('leo','width','Width',function(){
+		
+	})
+	move('leo','height','Height')
+	var dom = l("#leo").dom
+	for(var i in dom){
+		console.log(i+":"+dom[i])
+	}
+	console.log("leo")
+</script>
+</body>
+</html>

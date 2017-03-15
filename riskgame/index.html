@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒险游戏</title>
+	<link rel="stylesheet" href="css/emoji.css">
+	<link rel="stylesheet" href="css/leo.css">
+	<link rel="stylesheet" href="css/main.css">
+	<style>
+		.mar-center{
+			margin:0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="row pad">
+		<!-- 头像 -->
+		<div id="man" class="bor-radius bg-white pad col-span-2">
+			<div id="man-head" class="emoji e-normal bor-radius mar-center"></div>
+		</div>
+		<!-- 属性面板 -->
+		<div id="manStatus" class="col-span-2 bg-white bor-radius mar-left">
+			<div class="row mar">
+				<span class="pad clo-orange">生命 : </span>
+				<span class="pad" id="hp">{{hp}}</span>
+			</div>
+			<div class="row mar">
+				<span class="pad clo-orange">魔力 : </span>
+				<span class="pad" id="mp">{{mp}}</span>
+			</div>
+			<div class="row mar">
+				<span class=" pad clo-orange">饥饿 : </span>
+				<span class=" pad" id="hungry">{{hungry}}</span>
+			</div>
+			<div class="row mar">
+				<span class=" pad clo-orange">精神 : </span>
+				<span class=" pad" id="spirit">{{spirit}}</span>
+			</div>
+			<div class="row mar">
+				<span class=" pad clo-orange">经验 : </span>
+				<span class=" pad" id="exp">{{exp}}</span>
+			</div>
+		</div>
+		<!-- 操作面板 -->
+		<div id="controls" class="bor-radius pad col-span-2 bg-white mar-left">
+			<button id="eat" class="ui-btn-blue col-span-12">吃饭</button>
+			<button id="sleep" class="ui-btn-blue col-span-12 mar-top">睡觉</button>
+			<button id="house" class="ui-btn-gray col-span-12 mar-top">仓库</button>
+			<button id="showFarm" class="ui-btn-gray col-span-12 mar-top">农场</button>
+			<button id="risk" class="ui-btn-gray col-span-12 mar-top">探险</button>
+		</div>
+		<!-- 农场 -->
+		<div id="farm" class="bor-radius pad col-span-2 bg-white mar-left" style="display:none">
+			<div>
+				<span class="pad">苹果树：</span>
+				<span class="pad" id="apple">0</span>
+			</div>
+			<div>
+				<span class="pad">猪　圈：</span>
+				<span class="pad" id="meat">0</span>
+			</div>
+			<div>
+				<span class="pad">牛　圈：</span>
+				<span class="pad" id="beef">0</span>
+			</div>
+			<button id="getSource" class="ui-btn-blue col-span-12">收获</button>
+		</div>
+		<div id="eatFood" class="bor-radius pad col-span-2 bg-white mar-left" style="display:none">
+			<!-- <button class="ui-btn-blue col-span-12">leo</button> -->
+		</div>
+	</div>
+<script src="js/selector.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/data.js"></script>
+<script src="js/leo.view.js"></script>
+<script src="js/man.js"></script>
+<script src="js/food.js"></script>
+<script src="js/main.js"></script>
+<script>
+
+</script>
+</body>
+</html>

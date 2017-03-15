@@ -1,0 +1,20 @@
+.emoji{
+	width:175px;
+	height:256px;
+	background-image: url('../img/emoji.jpg');
+}
+.e-tired{
+	background-position: 0 0;
+}
+.e-laugh{
+	background-position: -175px 0;
+}
+.e-satisfy{
+	background-position: -350px 0;
+}
+.e-angry{
+	background-position: 175px 512px;
+}
+.e-normal{
+	background-position: -350px 0;
+}
